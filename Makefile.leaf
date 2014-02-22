@@ -1,0 +1,5 @@
+EMACS:=$(shell which emacs)
+PREFIX:=$(subst /bin/emacs,,$(EMACS))
+SHAREDIR:=$(PREFIX)/share
+LISPDIR:=$(SHAREDIR)/emacs/site-lisp
+FIND:=/usr/bin/find
