@@ -30,18 +30,18 @@
 (global-set-key "\C-xj" 'skk-mode)
 
 ;;; Font
-(set-face-attribute 'default nil
-                    :family "Ricty Discord"
-                    :height 120)
-(set-fontset-font (frame-parameter nil 'font)
-                  'japanese-jisx0208
-                  (cons "Ricty Discord" "iso10646-1"))
-(set-fontset-font (frame-parameter nil 'font)
-                  'japanese-jisx0212
-                  (cons "Ricty Discord" "iso10646-1"))
-(set-fontset-font (frame-parameter nil 'font)
-                  'katakana-jisx0201
-                  (cons "Ricty Discord" "iso10646-1"))
+;(set-face-attribute 'default nil
+;                    :family "Ricty Discord"
+;                    :height 120)
+;(set-fontset-font (frame-parameter nil 'font)
+;                  'japanese-jisx0208
+;                  (cons "Ricty Discord" "iso10646-1"))
+;(set-fontset-font (frame-parameter nil 'font)
+;                  'japanese-jisx0212
+;                  (cons "Ricty Discord" "iso10646-1"))
+;(set-fontset-font (frame-parameter nil 'font)
+;                  'katakana-jisx0201
+;                  (cons "Ricty Discord" "iso10646-1"))
 
 ;;; 長いリストの表示を省略する(数字:MAXの数(default:12)、nil:省略しない)
 (setq eval-expression-print-length nil)
