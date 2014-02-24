@@ -1,5 +1,22 @@
+#-*- Makefile -*-
+SYS:=$(shell uname)
+
 EMACS:=$(shell which emacs)
+AUTOCONF:=$(shell which autoconf)
+
 PREFIX:=$(subst /bin/emacs,,$(EMACS))
+
+ifeq ($(strip $(SYS)),CYGWIN_NT-6.1)
+# cygwin
+SUDO:=
 SHAREDIR:=$(PREFIX)/share
-LISPDIR:=$(SHAREDIR)/emacs/site-lisp
+SITELISP:=$(PREFIX)/site-lisp
+else
+# not cygwin
+SUDO:=sudo
+SHAREDIR:=$(PREFIX)/share
+SITELISP:=$(SHAREDIR)/emacs/site-lisp
+endif
+
+
 FIND:=/usr/bin/find

@@ -1,12 +1,13 @@
 include ../Makefile.leaf
 
-INSTALL:=sudo make install EMACS=$(EMACS)
+INSTALL:=$(SUDO) make install EMACS=$(EMACS)
+INSTALL_W3M:=$(SUDO) make install-lisp EMACS=$(EMACS) lispdir=$(SITELISP)/w3m
 
 all: skk w3m
 
-skk: $(SHAREDIR)/skk
-w3m: apel $(LISPDIR)/w3m
-apel: $(LISPDIR)/apel
+skk: $(SITELISP)/skk
+w3m: apel $(SITELISP)/w3m
+apel: $(SITELISP)/apel
 
 arc2dir=$(subst .tar.gz,,$(1))
 dir2arg=$(addsuffix .tar.gz,$(1))
@@ -21,7 +22,7 @@ $(SHAREDIR)/skk: $(SKKARC)
 # apel
 APELARC:=$(shell $(FIND) . -name 'apel*.tar.gz')
 APELDIR:=$(call arc2dir,$(APELARC))
-$(LISPDIR)/apel: $(APELARC)
+$(SITELISP)/apel: $(APELARC)
 	tar -zxf $(APELARC)
 	cd $(APELDIR) && $(INSTALL)
 
@@ -29,9 +30,9 @@ $(LISPDIR)/apel: $(APELARC)
 # w3m
 W3MARC:=$(shell $(FIND) . -name 'emacs-w3m*.tar.gz')
 W3MDIR:=$(call arc2dir,$(W3MARC))
-$(LISPDIR)/w3m: $(W3MARC)
+$(SITELISP)/w3m: $(W3MARC)
 	tar -zxf $(W3MARC)
-	cd $(W3MDIR) && ./configure --with-emacs=$(EMACS) && $(INSTALL)
+	cd $(W3MDIR) && ./configure --with-emacs=$(EMACS) && $(INSTALL_W3M)
 
 test:
 	@echo "PREFIX:$(PREFIX)"
