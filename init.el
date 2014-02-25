@@ -427,3 +427,6 @@
 ;;; Makfile mode
 (add-to-list 'auto-mode-alist '("Makefile\\..*$" . makefile-gmake-mode))
 (add-to-list 'auto-mode-alist '("Makefile_.*$" . makefile-gmake-mode))
+
+;;; shell-script mode
+(add-to-list 'auto-mode-alist '("\.sh$" . shell-script-mode))
