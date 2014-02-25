@@ -423,3 +423,7 @@
 ;;; Note: GitHub Flavored Markdown は gfm-mode を使う
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+
+;;; Makfile mode
+(add-to-list 'auto-mode-alist '("Makefile\\..*$" . makefile-gmake-mode))
+(add-to-list 'auto-mode-alist '("Makefile_.*$" . makefile-gmake-mode))
