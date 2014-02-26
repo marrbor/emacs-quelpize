@@ -60,11 +60,11 @@
 ;;使用言語
 (set-language-environment "Japanese")
 
-(set-default-coding-systems 'utf-8)
+(set-default-coding-systems 'utf-8-unix)
 ;; ターミナルモードで使用する場合の表示用文字コードを設定します。
-(set-terminal-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8-unix)
 ;; ターミナルモードで使用する場合のキー入力文字コードを設定します。
-(set-keyboard-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8-unix)
 (setq network-coding-system-alist '(("nntp" . (junet-unix . junet-unix))
                                     (110 . (no-conversion . no-conversion))
                                     (25 . (no-conversion . no-conversion))))
