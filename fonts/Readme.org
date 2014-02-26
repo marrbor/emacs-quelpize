@@ -1,0 +1,46 @@
+#+TITLE: Ricty Font のインストール
+#+AUTHOR: Masahide Matsumoto
+#+LATEX_HEADER: \usepackage{makeidx}
+#+LATEX_HEADER: \renewcommand{\seename}{$\rightarrow$}
+#+LATEX_HEADER: \makeindex
+#+OPTIONS: :makeindex toc:nil
+#+OPTIONS: ^:{} // アンダーラインを下付き文字としない。
+#+LANGUAGE: ja
+
+* How to use ricty font.
+
+** For Windows
+
+*** 各フォントをインストール
+(右クリック→「インストール」または
+右クリック→プログラムから開く→Windowsフォントビューアーで開いて「インストール」)
+
+*** お好みで MacTypeInstaller_2013_1231_0.exe もインストール
+MacTypeInstaller_2013_1231_0.exe を実行する
+
+** For Linux
+フォントの格納先ディレクトリを作って格納し、「fc-cache」を実行する。
+#+BEGIN_SRC text
+$ sudo mkdir -p /usr/share/fonts/japanese/TrueType
+$ sudo mv ~/.emacs.d/fonts/*.ttf /usr/share/fonts/japanese/TrueType
+$ fc-cache -vf
+#+END_SRC
+
+** emacs の設定例
+;;; Font
+(if window-system (cons
+		   (set-face-attribute 'default nil
+				       :family "Ricty Discord"
+				       :height 120)
+		   (set-fontset-font (frame-parameter nil 'font)
+				     'japanese-jisx0208
+				     (cons "Ricty Discord" "iso10646-1"))
+		   (set-fontset-font (frame-parameter nil 'font)
+				     'japanese-jisx0212
+				     (cons "Ricty Discord" "iso10646-1"))
+		   (set-fontset-font (frame-parameter nil 'font)
+				     'katakana-jisx0201
+				     (cons "Ricty Discord" "iso10646-1"))))
+
+** 参考文献
+http://futurismo.biz/archives/1313
