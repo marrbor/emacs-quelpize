@@ -434,6 +434,12 @@
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
+;;; Makfile mode
+(add-to-list 'auto-mode-alist '("Makefile\\..*$" . makefile-gmake-mode))
+(add-to-list 'auto-mode-alist '("Makefile_.*$" . makefile-gmake-mode))
+
+;;; shell-script mode
+(add-to-list 'auto-mode-alist '("\.sh$" . shell-script-mode))
 
 ;;;
 ;;; autoinsert (http://d.hatena.ne.jp/higepon/20080731/1217491155)
