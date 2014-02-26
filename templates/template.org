@@ -1,0 +1,11 @@
+#+TITLE: 
+#+AUTHOR: Masahide Matsumoto
+#+LATEX_HEADER: \usepackage{makeidx}
+#+LATEX_HEADER: \renewcommand{\seename}{$\rightarrow$}
+#+LATEX_HEADER: \makeindex
+#+OPTIONS: :makeindex toc:nil
+#+OPTIONS: ^:{} // アンダーラインを下付き文字としない。
+#+LANGUAGE: ja
+#+STYLE: <link rel="stylesheet" type="text/css" href="ruisdael.css" />
+
+*

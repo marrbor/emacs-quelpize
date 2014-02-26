@@ -1,8 +1,18 @@
 ;;;
 (setq load-path (cons "~/.emacs.d/lisp/" load-path))
 
-;;; .emacs.el を終了時にバイトコンパイルする
+;;; .emacs.el を起動後にバイトコンパイルする
 (add-hook 'after-init-hook
+	  (lambda ()
+	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
+		(progn
+		  (require 'bytecomp)
+		  (displaying-byte-compile-warnings
+		   (unless (byte-compile-file "~/.emacs.d/init.el")
+		     (signal nil nil)))))))
+
+;;; .init.el を終了時にバイトコンパイルする
+(add-hook 'kill-emacs-hook
 	  (lambda ()
 	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
 		(progn
@@ -30,18 +40,18 @@
 (global-set-key "\C-xj" 'skk-mode)
 
 ;;; Font
-;(set-face-attribute 'default nil
-;                    :family "Ricty Discord"
-;                    :height 120)
-;(set-fontset-font (frame-parameter nil 'font)
-;                  'japanese-jisx0208
-;                  (cons "Ricty Discord" "iso10646-1"))
-;(set-fontset-font (frame-parameter nil 'font)
-;                  'japanese-jisx0212
-;                  (cons "Ricty Discord" "iso10646-1"))
-;(set-fontset-font (frame-parameter nil 'font)
-;                  'katakana-jisx0201
-;                  (cons "Ricty Discord" "iso10646-1"))
+(set-face-attribute 'default nil
+                    :family "Ricty Discord"
+                    :height 120)
+(set-fontset-font (frame-parameter nil 'font)
+                  'japanese-jisx0208
+                  (cons "Ricty Discord" "iso10646-1"))
+(set-fontset-font (frame-parameter nil 'font)
+                  'japanese-jisx0212
+                  (cons "Ricty Discord" "iso10646-1"))
+(set-fontset-font (frame-parameter nil 'font)
+                  'katakana-jisx0201
+                  (cons "Ricty Discord" "iso10646-1"))
 
 ;;; 長いリストの表示を省略する(数字:MAXの数(default:12)、nil:省略しない)
 (setq eval-expression-print-length nil)
@@ -423,3 +433,37 @@
 ;;; Note: GitHub Flavored Markdown は gfm-mode を使う
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+
+
+;;;
+;;; autoinsert (http://d.hatena.ne.jp/higepon/20080731/1217491155)
+;;;
+(require 'autoinsert)
+
+;; テンプレートのディレクトリ
+(setq auto-insert-directory "~/.emacs.d/templates/")
+
+;; 各ファイルによってテンプレートを切り替える
+(setq auto-insert-alist
+      (nconc '(
+               ("\\.org$" . ["template.org" my-template])
+               ("\\.h$"   . ["template.h" my-template])
+               ) auto-insert-alist))
+(require 'cl)
+
+;; ここが腕の見せ所
+(defvar template-replacements-alists
+  '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
+    ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+    ("%include-guard%"    . (lambda () (format "_%s_INCLUDED_" (upcase (file-name-sans-extension (file-name-nondirectory buffer-file-name))))))))
+
+(defun my-template ()
+  (time-stamp)
+  (mapc #'(lambda(c)
+        (progn
+          (goto-char (point-min))
+          (replace-string (car c) (funcall (cdr c)) nil)))
+    template-replacements-alists)
+  (goto-char (point-max))
+  (message "done."))
+(add-hook 'find-file-not-found-hooks 'auto-insert)
