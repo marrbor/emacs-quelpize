@@ -453,8 +453,12 @@
 ;; 各ファイルによってテンプレートを切り替える
 (setq auto-insert-alist
       (nconc '(
-               ("\\.org$" . ["template.org" my-template])
+               ("\\.c$" . ["template.c" my-template])
+               ("\\.cpp$" . ["template.cpp" my-template])
+               ("\\.groovy$" . ["template.groovy" my-template])
                ("\\.h$"   . ["template.h" my-template])
+               ("\\.java$" . ["template.java" my-template])
+               ("\\.org$" . ["template.org" my-template])
                ) auto-insert-alist))
 (require 'cl)
 
