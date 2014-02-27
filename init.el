@@ -1,7 +1,7 @@
 ;;;
 (setq load-path (cons "~/.emacs.d/lisp/" load-path))
 
-;;; .emacs.el を起動後にバイトコンパイルする
+;;; init.el を起動後にバイトコンパイルする
 (add-hook 'after-init-hook
 	  (lambda ()
 	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
@@ -11,7 +11,7 @@
 		   (unless (byte-compile-file "~/.emacs.d/init.el")
 		     (signal nil nil)))))))
 
-;;; .init.el を終了時にバイトコンパイルする
+;;; init.el を終了時にバイトコンパイルする
 (add-hook 'kill-emacs-hook
 	  (lambda ()
 	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
@@ -458,6 +458,7 @@
                ("\\.groovy$" . ["template.groovy" my-template])
                ("\\.h$"   . ["template.h" my-template])
                ("\\.java$" . ["template.java" my-template])
+               ("\\.json$" . ["template.json" my-template])
                ("\\.org$" . ["template.org" my-template])
                ) auto-insert-alist))
 (require 'cl)
@@ -473,7 +474,9 @@
   (mapc #'(lambda(c)
         (progn
           (goto-char (point-min))
-          (replace-string (car c) (funcall (cdr c)) nil)))
+;          (replace-string (car c) (funcall (cdr c)) nil)))
+          (while (re-search-forward (car c) nil t)
+            (replace-match (funcall (cdr c)) nil t))))
     template-replacements-alists)
   (goto-char (point-max))
   (message "done."))
