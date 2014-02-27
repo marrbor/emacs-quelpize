@@ -478,3 +478,6 @@
   (goto-char (point-max))
   (message "done."))
 (add-hook 'find-file-not-found-hooks 'auto-insert)
+
+;;; JSON
+(require 'json-mode)
