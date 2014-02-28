@@ -483,6 +483,7 @@
                ("\\.java$" . ["template.java" my-template])
                ("\\.json$" . ["template.json" my-template])
                ("\\.org$" . ["template.org" my-template])
+               ("\\.sh$" . ["template.sh" my-template])
                ) auto-insert-alist))
 (require 'cl)
 
