@@ -380,7 +380,10 @@
 	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
 	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/libs/ditaa/ditaa0_9.jar"))
+;;; org-mode diaa
+(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/libs/ditaa/jditaa.jar"))
+(add-hook 'picture-mode-hook 'picture-mode-init)
+(autoload 'picture-mode-init "picture-init")
   
 
 
