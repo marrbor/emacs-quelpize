@@ -5,8 +5,8 @@
 (setq skk-large-jisyo "~/.emacs.d/.ddskk/dic/SKK-JISYO.L")
 
 (setq skk-rom-kana-rule-list
-      (append '(("wi" nil ("ヰ" . "ゐ"))
-		("we" nil ("ヱ" . "ゑ")))
+      (append '(("wfi" nil ("ヰ" . "ゐ"))
+		("wfe" nil ("ヱ" . "ゑ")))
 	      skk-rom-kana-rule-list))
 
 ;; ja-dic.el を利用したかな漢字変換(DDSKK 14.2～)を無効とする

@@ -35,8 +35,13 @@ public class Jditaa {
     }
     
     public static void jditaa(File in, File out) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(in));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(out));
+        FileInputStream fis = new FileInputStream(in);
+        InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+        BufferedReader reader = new BufferedReader(isr);
+
+        FileOutputStream fos = new FileOutputStream(out);
+        OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+        BufferedWriter writer = new BufferedWriter(osw);
         while (true) {
             String line = reader.readLine();
             if (line == null)
