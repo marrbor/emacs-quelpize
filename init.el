@@ -361,6 +361,9 @@
 	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
 	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+(setq org-ditaa-jar-path "~/.emacs.d/libs/ditaa/ditaa0_9.jar")
+
+
 ;;; SKK
 ;; SKK の設定は、~/.skk の方が優先されます。
 ;; 下記の設定は、特殊な事情があるため ~/.skk ではうまく機能しない設定を
