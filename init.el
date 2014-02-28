@@ -75,10 +75,6 @@
 ;;; 日本語メニューの文字コード
 (setq menu-coding-system 'utf-8)
 
-;;; autoinsert
-;;(add-hook 'find-file-hooks 'auto-insert)
-(load-library "autoinsert")
-
 ;;;
 (setq debug-on-error t)
 
@@ -321,7 +317,7 @@
              (c-set-offset 'arglist-closen 0)))
 
 ;;; MS-DOS
-(load-library "dosbat.el")
+(load-library "dosbat")
 (add-to-list 'auto-mode-alist '("\.bat$" . bat-mode))
 
 ;;; Power Shell
@@ -432,7 +428,7 @@
 
 ;;; markdown
 ;;; Note: GitHub Flavored Markdown は gfm-mode を使う
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+(autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
 ;;; Makfile mode
@@ -484,3 +480,11 @@
 
 ;;; JSON
 (require 'json-mode)
+
+;;; Cygwin Shell
+(setq explicit-bash-args '("--login" "-i"))
+(defun cygwin-shell ()
+  "Run cygwin bash in shell mode."
+  (interactive)
+  (let ((explicit-shell-file-name "C:/cygwin/bin/bash"))
+    (call-interactively 'shell)))
