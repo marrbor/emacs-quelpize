@@ -5,7 +5,7 @@ INSTALL_W3M:=$(SUDO) make install-lisp EMACS=$(EMACS) lispdir=$(SITELISP)/w3m
 
 all: skk w3m
 
-skk: $(SHAREDIR)/skk $(SITELISP)/skk
+skk: $(SHAREDIR)/skk $(VERSITELISP)/skk
 w3m: apel $(SITELISP)/w3m
 apel: $(SITELISP)/apel
 
@@ -19,7 +19,7 @@ $(SHAREDIR)/skk: $(SKKARC)
 	tar -zxf $(SKKARC)
 	cd $(SKKDIR) && $(INSTALL)
 
-$(SITELISP)/skk: $(SKKARC)
+$(VERSITELISP)/skk: $(SKKARC)
 	tar -zxf $(SKKARC)
 	cd $(SKKDIR) && $(INSTALL)
 

@@ -1,8 +1,11 @@
 include Makefile.leaf
 
-DIRS:=lisp source fonts
+DIRS:=lisp source fonts libs/ditaa
 
-.PHONY: $(DIRS)
+all: $(DIRS)
+
+.PHONY : $(DIRS)
+
 $(DIRS):
 ifeq ($(strip $(EMACS)),)
 	$(error "cannot find emacs.")
@@ -15,3 +18,7 @@ endif
 
 lisp: source
 
+test:
+	@echo "EMACS:$(EMACS)"
+	@echo "EMACSVER:$(EMACSVER)"
+	@echo "DIRS:$(DIRS)"
