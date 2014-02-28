@@ -1,6 +1,6 @@
 include Makefile.leaf
 
-DIRS:=lisp source
+DIRS:=lisp source fonts
 
 .PHONY: $(DIRS)
 $(DIRS):
