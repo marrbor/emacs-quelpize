@@ -1,6 +1,25 @@
 ;;;
 (setq load-path (cons "~/.emacs.d/lisp/" load-path))
 
+;;; system-type predicates (http://d.hatena.ne.jp/tomoya/20090807/1249601308)
+(setq darwin-p  (eq system-type 'darwin)
+      ns-p      (eq window-system 'ns)
+      carbon-p  (eq window-system 'mac)
+      linux-p   (eq system-type 'gnu/linux)
+      colinux-p (when linux-p
+                  (let ((file "/proc/modules"))
+                    (and
+                     (file-readable-p file)
+                     (x->bool
+                      (with-temp-buffer
+                        (insert-file-contents file)
+                        (goto-char (point-min))
+                        (re-search-forward "^cofuse\.+" nil t))))))
+      cygwin-p  (eq system-type 'cygwin)
+      nt-p      (eq system-type 'windows-nt)
+      meadow-p  (featurep 'meadow)
+      windows-p (or cygwin-p nt-p meadow-p))
+
 ;;; init.el を起動後にバイトコンパイルする
 (add-hook 'after-init-hook
 	  (lambda ()
@@ -361,7 +380,8 @@
 	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
 	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-(setq org-ditaa-jar-path "~/.emacs.d/libs/ditaa/ditaa0_9.jar")
+(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/libs/ditaa/ditaa0_9.jar"))
+  
 
 
 ;;; SKK
