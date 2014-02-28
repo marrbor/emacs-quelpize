@@ -5,7 +5,7 @@ INSTALL_W3M:=$(SUDO) make install-lisp EMACS=$(EMACS) lispdir=$(SITELISP)/w3m
 
 all: skk w3m
 
-skk: $(SHAREDIR)/skk
+skk: $(SHAREDIR)/skk $(SITELISP)/skk
 w3m: apel $(SITELISP)/w3m
 apel: $(SITELISP)/apel
 
@@ -16,6 +16,10 @@ dir2arg=$(addsuffix .tar.gz,$(1))
 SKKARC:=$(shell $(FIND) . -name 'ddskk*.tar.gz')
 SKKDIR:=$(call arc2dir,$(SKKARC))
 $(SHAREDIR)/skk: $(SKKARC)
+	tar -zxf $(SKKARC)
+	cd $(SKKDIR) && $(INSTALL)
+
+$(SITELISP)/skk: $(SKKARC)
 	tar -zxf $(SKKARC)
 	cd $(SKKDIR) && $(INSTALL)
 
@@ -39,3 +43,4 @@ test:
 	@echo "SKKDIR:$(SKKDIR)"
 	@echo "APELDIR:$(APELDIR)"
 	@echo "W3MDIR:$(W3MDIR)"
+	@echo "SHAREDIR:$(SHAREDIR)"
