@@ -8,7 +8,7 @@ SRCFONTS:=$(shell find . -name '*.ttf')
 FONTSDIR:=/usr/share/fonts/japanese/TrueType
 FONTS:=$(subst ./,$(FONTSDIR)/,$(SRCFONTS))
 
-ifeq ($(strip $(SYS)),CYGWIN_NT-6.1)
+ifneq ($(strip $(SYS)),CYGWIN_NT-6.1)
 all: $(FONTS)
 else
 all: error
