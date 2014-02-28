@@ -382,6 +382,7 @@
 
 ;;; org-mode diaa
 (setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/libs/ditaa/jditaa.jar"))
+
 (add-hook 'picture-mode-hook 'picture-mode-init)
 (autoload 'picture-mode-init "picture-init")
   

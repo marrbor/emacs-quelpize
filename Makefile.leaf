@@ -10,7 +10,7 @@ PREFIX:=$(subst /bin/emacs,,$(EMACS))
 ifeq ($(strip $(SYS)),CYGWIN_NT-6.1)
 # cygwin
 SUDO:=
-SHAREDIR:=$(PREFIX)/share
+SHAREDIR:=$(PREFIX)/etc
 SITELISP:=$(PREFIX)/site-lisp
 VERSITELISP:=$(SITELISP)
 else
