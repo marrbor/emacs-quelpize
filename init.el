@@ -46,6 +46,7 @@
 (global-set-key "\C-t" 'scroll-down)
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
+(global-set-key "\C-co" 'revert-buffer)
 (global-set-key "\M-%" 'query-replace-regexp)
 (global-set-key "\M-?" 'help-for-help)
 (global-set-key "\M-M" 'compile)
