@@ -306,6 +306,8 @@
 
 ;;;w3m
 (require 'w3m-load)
+(setq browse-url-browser-function 'w3m-browse-url)
+(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 
 ;;; JavaScript
 (require 'gjslint)
@@ -387,7 +389,7 @@
 
 (add-hook 'picture-mode-hook 'picture-mode-init)
 (autoload 'picture-mode-init "picture-init")
-  
+
 
 
 ;;; SKK
@@ -518,3 +520,81 @@
   (interactive)
   (let ((explicit-shell-file-name "C:/cygwin/bin/bash"))
     (call-interactively 'shell)))
+
+;;; C-x C-f を便利にする
+(ffap-bindings)
+
+;;; dired
+(setq dired-listing-switches (purecopy "-Ahl"))
+
+;; diredを2つのウィンドウで開いている時に、デフォルトの移動orコピー先を
+;; もう一方のdiredで開いているディレクトリにする
+(setq dired-dwim-target t)
+
+;; ディレクトリを再帰的にコピーする
+(setq dired-recursive-copies 'always)
+
+;; diredバッファでC-sした時にファイル名だけにマッチするように
+(setq dired-isearch-filenames t)
+
+;; .zipで終わるファイルをZキーで展開できるように
+(setq dired-compress-file-suffixes nil)
+(add-to-list 'dired-compress-file-suffixes '("\\.zip\\'" ".zip" "unzip"))
+
+;; マークされたファイルを tar. C-u をつけると tar.gz.
+(setq dired-guess-shell-gnutar "/bin/tar")
+(defun dired-tar (tarname files &optional arg)
+  "A dired-mode extension to archive files marked. With prefix argument, the tarball is gziped."
+  (interactive (let ((files (dired-get-marked-files)))
+                 (list (read-string "Tarball name: " (concat (file-relative-name (car files)) ".tar.gz"))
+                       files "P")))
+  (let ((tar (if arg
+                 (if dired-guess-shell-gnutar
+                     (concat dired-guess-shell-gnutar " zcf %s %s")
+                   "tar cf - %2s | gzip &gt; %1s")
+               "tar cf %s %s")))
+    (shell-command (format tar tarname (mapconcat 'file-relative-name files " ")))))
+
+;; diredバッファでマークしたファイルをzip形式で圧縮する
+(defun concat-string-list (list)
+  "Return a string which is a concatenation of all elements of the list separated by spaces"
+  (mapconcat '(lambda (obj) (format "%s" obj)) list " "))
+(defun dired-zip-files (zip-file)
+  "Create an archive containing the marked files."
+  (interactive "sEnter name of zip file: ")
+  (let ((zip-file (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
+    (shell-command
+     (concat "zip "
+             zip-file
+             " "
+             (concat-string-list
+              (mapcar
+               '(lambda (filename)
+                  (file-name-nondirectory filename))
+               (dired-get-marked-files))))))
+  (revert-buffer)
+  ;; remove the mark on all the files  "*" to " "
+  ;;  (dired-change-marks 42)
+  ;; mark zip file
+  ;; (dired-mark-files-regexp (filename-to-regexp zip-file))
+  )
+
+
+;; ファイルを w3m で開く
+(defun dired-w3m-find-file ()
+  (interactive)
+  (require 'w3m)
+  (let ((file (dired-get-filename)))
+    (if (y-or-n-p (format "Open 'w3m' %s " (file-name-nondirectory file)))
+        (w3m-find-file file))))
+
+
+;; キーバインド
+(eval-after-load "dired"
+  '(define-key dired-mode-map "\C-xm" 'dired-w3m-find-file))
+(eval-after-load "dired"
+  '(define-key dired-mode-map "z" 'dired-zip-files))
+(eval-after-load "dired"
+  '(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode))
+(eval-after-load "dired"
+  '(define-key dired-mode-map "\C-xt" 'dired-tar))
