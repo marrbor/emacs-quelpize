@@ -174,7 +174,7 @@
 (defun insert-current-time-string ()
   "Inserts current time string at point."
   (interactive)
-  (insert (current-time-string)))
+  (insert (format-time-string "%Y/%m/%d %T %z")))
 
 
 (put 'set-goal-column 'disabled nil)
