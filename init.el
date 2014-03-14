@@ -384,12 +384,62 @@
 	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
 	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-;;; org-mode diaa
+;;; org-mode ditaa
 (setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/libs/ditaa/jditaa.jar"))
 
 (add-hook 'picture-mode-hook 'picture-mode-init)
 (autoload 'picture-mode-init "picture-init")
 
+;;; C-c C-c inside #+BEGIN_SRC .. #+END_SRC
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((C . t)
+   (R . t)
+   (asymptote . t)
+   (awk . t)
+   (calc . t)
+   (clojure . t)
+   (comint . t)
+   (css . t)
+   (ditaa . t)
+   (dot . t)
+   (emacs-lisp . t)
+   (eval . t)
+   (exp . t)
+   (fortran . t)
+   (gnuplot . t)
+   (haskell . t)
+   (io . t)
+   (java . t)
+   (js . t)
+   (keys . t)
+   (latex . t)
+   (ledger . t)
+   (lilypond . t)
+   (lisp . t)
+   (lob . t)
+   (matlab . t)
+   (maxima . t)
+   (mscgen . t)
+   (ocaml . t)
+   (octave . t)
+   (org . t)
+   (perl . t)
+   (picolisp . t)
+   (plantuml . t)
+   (python . t)
+   (ref . t)
+   (ruby . t)
+   (sass . t)
+   (scala . t)
+   (scheme . t)
+   (screen . t)
+   (sh . t)
+   (shen . t)
+   (sql . t)
+   (sqlite . t)
+   (table . t)
+   (tangle . t)))
 
 
 ;;; SKK
