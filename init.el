@@ -442,6 +442,10 @@
    (tangle . t)))
 
 
+;;; BEGIN_SRC ブロックの評価時、いちいち yes-no-p させない
+(setq org-confirm-babel-evaluate nil)
+
+
 ;;; SKK
 ;; SKK の設定は、~/.skk の方が優先されます。
 ;; 下記の設定は、特殊な事情があるため ~/.skk ではうまく機能しない設定を
