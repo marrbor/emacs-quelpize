@@ -443,7 +443,13 @@
 
 
 ;;; BEGIN_SRC ブロックの評価時、いちいち yes-no-p させない
+;;; その代わり危険なコードには :eval never をつける必要がある。
 (setq org-confirm-babel-evaluate nil)
+
+;;; BEGIN_SRC ブロックの評価時、ditaa か dot なら yes-no-p させない
+;(defun my-org-confirm-babel-evaluate (lang body)
+;  (not (or (string= lang "ditaa") (string= lang "dot"))))
+;(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
 
 ;;; SKK
