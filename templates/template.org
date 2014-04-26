@@ -1,5 +1,5 @@
 #+TITLE: 
-#+AUTHOR: Masahide Matsumoto
+#+AUTHOR: Development team
 #+LATEX_HEADER: \usepackage{makeidx}
 #+LATEX_HEADER: \renewcommand{\seename}{$\rightarrow$}
 #+LATEX_HEADER: \makeindex
