@@ -382,6 +382,17 @@
 	       ("\\subsection{%s}" . "\\subsection*{%s}")
 	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+	     '("minireport"
+	       "
+	       \\documentclass{jsarticle}
+	       \\usepackage[dvipdfmx]{graphicx}
+	       \\usepackage[utf8]{inputenc}
+	       \\usepackage[T1]{fontenc}
+	       "
+	       ("\\subsection{%s}" . "\\subsection*{%s}")
+	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
 	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 ;;; org-mode ditaa
