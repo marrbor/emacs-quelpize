@@ -672,8 +672,8 @@
 
 ;; eshell
 (defun eshell-mode-hook-func ()
-  (setq eshell-path-env (concat "~/.gvm/groovy/current/bin:~/.gvm/vertx/current/bin:" eshell-path-env))
-  (setenv "PATH" (concat "~/.gvm/groovy/current/bin:~/.gvm/vertx/current/bin:" (getenv "PATH")))
+  (setq eshell-path-env (concat "~/Ruisdael/tools/bin:~/.gvm/groovy/current/bin:~/.gvm/vertx/current/bin:" eshell-path-env))
+  (setenv "PATH" (concat "~/Ruisdael/tools/bin:~/.gvm/groovy/current/bin:~/.gvm/vertx/current/bin:" (getenv "PATH")))
   (define-key eshell-mode-map (kbd "M-s") 'other-window-or-split))
 
 (add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
