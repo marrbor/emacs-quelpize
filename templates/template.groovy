@@ -8,7 +8,7 @@ import net.iperfecta.Ruisdael.Base.BusMod
 
 import org.vertx.java.core.Future
 
-class CLASSNAME extends BusMod {
+class %file-without-ext% extends BusMod {
 
   def spec = [:]
 
