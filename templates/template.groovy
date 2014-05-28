@@ -4,7 +4,7 @@
 
 package jp.survei.
 
-import net.iperfecta.Ruisdael.Base.BusMod
+import jp.survei.base.BusMod
 
 import org.vertx.java.core.Future
 
