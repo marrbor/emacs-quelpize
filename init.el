@@ -677,3 +677,14 @@
   (define-key eshell-mode-map (kbd "M-s") 'other-window-or-split))
 
 (add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
+
+(defadvice eshell-script-interpreter (around esi activate)
+  (setq ad-return-value
+        (let ((file (ad-get-arg 0))
+              (maxlen eshell-command-interpreter-max-length))
+          (if (and (file-readable-p file)
+                   (file-regular-p file))
+              (with-temp-buffer
+                (insert-file-contents-literally file nil 0 maxlen)
+                (when (re-search-forward "^#![ \t]*\\(.+\\)$" nil t)
+                  `(,@(split-string (match-string 1)) ,file)))))))
