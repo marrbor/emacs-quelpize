@@ -464,6 +464,14 @@
 ;  (not (or (string= lang "ditaa") (string= lang "dot"))))
 ;(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
+;; active Org-babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(;; other Babel languages
+   (plantuml . t)))
+
+(setq org-plantuml-jar-path
+      (expand-file-name "~/.emacs.d/libs/plantUML/plantuml.jar"))
 
 ;;; SKK
 ;; SKK の設定は、~/.skk の方が優先されます。
