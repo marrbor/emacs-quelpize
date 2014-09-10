@@ -8,6 +8,12 @@ import jp.survei.base.BusMod
 
 import org.vertx.java.core.Future
 
+import groovy.transform.CompileStatic
+import groovy.transform.TypeCheckingMode
+
+// use @CompileStatic(TypeCheckingMode.SKIP) for method includes dynamic contents.
+
+@CompileStatic
 class %file-without-ext% extends BusMod {
 
   def spec = [:]
