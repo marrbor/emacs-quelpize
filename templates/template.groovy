@@ -20,17 +20,17 @@ class %file-without-ext% extends BusMod {
 
   @Override def start(Future<Void> sr) {
     super.start()
-    logger.info "Boot %file-without-ext%"
+    info "Boot %file-without-ext%"
     def confresult = chkconfig(config, spec)   // verify configuration.
-    logger.debug "chkconfig returns ${confresult}."
+    debug "chkconfig returns ${confresult}."
     if (confresult) sr.setFailure(confresult) // something wrong.
     else {
-      logger.info "Start %file-without-ext%"
+      info "Start %file-without-ext%"
       sr.setResult(null)
     }
   }
 
   @Override def stop() {
-    logger.info "%file-without-ext% Stopped."
+    info "%file-without-ext% Stopped."
   }
 }
