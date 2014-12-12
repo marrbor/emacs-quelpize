@@ -1,4 +1,17 @@
 ;;;
+;;; w3mをquelpaで取得するために CVS が必要です。
+;;;
+
+
+;;; quelpa
+(package-initialize)
+(if (require 'quelpa nil t)
+    (quelpa-self-upgrade)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
+    (eval-buffer)))
+
+;;;
 (setq load-path (cons "~/.emacs.d/lisp/" load-path))
 
 ;;; system-type predicates (http://d.hatena.ne.jp/tomoya/20090807/1249601308)
@@ -21,24 +34,24 @@
       windows-p (or cygwin-p nt-p meadow-p))
 
 ;;; init.el を起動後にバイトコンパイルする
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
-		(progn
-		  (require 'bytecomp)
-		  (displaying-byte-compile-warnings
-		   (unless (byte-compile-file "~/.emacs.d/init.el")
-		     (signal nil nil)))))))
+;(add-hook 'after-init-hook
+;	  (lambda ()
+;	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
+;		(progn
+;		  (require 'bytecomp)
+;		  (displaying-byte-compile-warnings
+;		   (unless (byte-compile-file "~/.emacs.d/init.el")
+;		     (signal nil nil)))))))
 
 ;;; init.el を終了時にバイトコンパイルする
-(add-hook 'kill-emacs-hook
-	  (lambda ()
-	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
-		(progn
-		  (require 'bytecomp)
-		  (displaying-byte-compile-warnings
-		   (unless (byte-compile-file "~/.emacs.d/init.el")
-		     (signal nil nil)))))))
+;(add-hook 'kill-emacs-hook
+;	  (lambda ()
+;	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
+;		(progn
+;		  (require 'bytecomp)
+;		  (displaying-byte-compile-warnings
+;		   (unless (byte-compile-file "~/.emacs.d/init.el")
+;		     (signal nil nil)))))))
 
 
 ;;Key bind
@@ -60,19 +73,19 @@
 (global-set-key "\C-xj" 'skk-mode)
 
 ;;; Font
-(if window-system (cons
-		   (set-face-attribute 'default nil
-				       :family "Ricty Discord"
-				       :height 120)
-		   (set-fontset-font (frame-parameter nil 'font)
-				     'japanese-jisx0208
-				     (cons "Ricty Discord" "iso10646-1"))
-		   (set-fontset-font (frame-parameter nil 'font)
-				     'japanese-jisx0212
-				     (cons "Ricty Discord" "iso10646-1"))
-		   (set-fontset-font (frame-parameter nil 'font)
-				     'katakana-jisx0201
-				     (cons "Ricty Discord" "iso10646-1"))))
+;(if window-system (cons
+;		   (set-face-attribute 'default nil
+;				       :family "Ricty Discord"
+;				       :height 120)
+;		   (set-fontset-font (frame-parameter nil 'font)
+;				     'japanese-jisx0208
+;				     (cons "Ricty Discord" "iso10646-1"))
+;		   (set-fontset-font (frame-parameter nil 'font)
+;				     'japanese-jisx0212
+;				     (cons "Ricty Discord" "iso10646-1"))
+;		   (set-fontset-font (frame-parameter nil 'font)
+;				     'katakana-jisx0201
+;				     (cons "Ricty Discord" "iso10646-1"))))
 
 ;;; 長いリストの表示を省略する(数字:MAXの数(default:12)、nil:省略しない)
 (setq eval-expression-print-length nil)
@@ -130,9 +143,6 @@
 (setq line-number-mode t)
 (column-number-mode 1)
 
-;;;行番号表示
-(autoload 'setnu-mode "setnu" nil t)
-
 ;;;
 ;;; 対応括弧のハイライト化
 ;;;
@@ -146,12 +156,6 @@
 
 ;;; 行頭でのC-kは一撃で１行削除
 (setq kill-whole-line t)
-
-;;;
-;;; kill-summary
-;;;
-(autoload 'kill-summary "kill-summary" nil t)
-(define-key global-map "\ey" 'kill-summary)
 
 ;;;
 ;;; ヘルプ高速化
@@ -300,20 +304,64 @@
 			(define-key text-mode-map "\M-t" '
 			  (lambda() (interactive)(insert (format-time-string "::%Y-%m-%d(%a) %H:%M" (current-time)))))))
 
-(load "ins-ref")
+
+;;; packages
+(require 'quelpa)
+(quelpa 'apel)
+(quelpa 'w3m)
+(quelpa 'flymake-gjshint)
+(quelpa 'js2-mode)
+(quelpa 'js2-refactor)
+(quelpa 'ac-js2)
+(quelpa 'groovy-mode)
+(quelpa 'powershell-mode)
+(quelpa 'git)
+(quelpa 'git-blame)
+(quelpa 'skk)
+(quelpa 'json-mode)
+(quelpa 'flymake-json)
+(quelpa 'nsis-mode)
+(quelpa 'dos)
+
+;(load "ins-ref")
 
 (put 'narrow-to-region 'disabled nil)
 
 ;;;w3m
-(require 'w3m-load)
-(setq browse-url-browser-function 'w3m-browse-url)
-(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+; ADHOC
+;(require 'w3m-load)
+;(setq browse-url-browser-function 'w3m-browse-url)
+;(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 
 ;;; JavaScript
-(require 'gjslint)
-(add-hook 'js-mode-hook
- 	  (lambda () (flymake-mode t)))
-(setq js-indent-level 2)
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.\\(js\\|js.erb\\)\\'" . js2-mode))
+(add-hook 'js2-mode-hook
+          #'(lambda ()
+              (require 'js)
+              (setq js2-basic-offset 2
+                    indent-tabs-mode nil)
+              (define-key js2-mode-map (kbd "C-m") 'newline-and-indent)
+              (define-key js2-mode-map (kbd "<return>") 'newline-and-indent)
+              ))
+
+(defun flymake-gjslint-init ()
+  "Initialize flymake for gjslint"
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace)))
+    ;; (list "gjslint" (list temp-file "--nosummary"))))
+    (list "gjslint" (list temp-file "--nosummary"))))
+(setq flymake-allowed-file-name-masks nil)
+(add-to-list 'flymake-allowed-file-name-masks
+             '(".+\\.js$"
+               flymake-gjslint-init
+               flymake-simple-cleanup
+               flymake-get-real-file-name))
+(setq flymake-err-line-patterns nil)
+(add-to-list 'flymake-err-line-patterns
+             '("^Line \\([[:digit:]]+\\), E:[[:digit:]]+: "
+               nil 1 nil))
+(add-hook 'js2-mode-hook (lambda () (flymake-mode t)))
 
 ;;;groovy
 (autoload 'groovy-mode "groovy-mode" "Major mode for editing Groovy code." t)
@@ -340,12 +388,12 @@
              (c-set-offset 'arglist-closen 0)))
 
 ;;; MS-DOS
-(load-library "dosbat")
-(add-to-list 'auto-mode-alist '("\.bat$" . bat-mode))
+(add-to-list 'auto-mode-alist '("\.bat$" . dos-mode))
 
 ;;; Power Shell
-(require 'powershell-mode)
-(add-to-list 'auto-mode-alist '("\.ps1$" . powershell-mode))
+; ADHOC
+;(require 'powershell-mode)
+;(add-to-list 'auto-mode-alist '("\.ps1$" . powershell-mode))
 
 ;;; NSIS
 (autoload 'nsis-mode "nsis-mode" "nsi editing mode." t)
@@ -662,12 +710,12 @@
 
 
 ;; ファイルを w3m で開く
-(defun dired-w3m-find-file ()
-  (interactive)
-  (require 'w3m)
-  (let ((file (dired-get-filename)))
-    (if (y-or-n-p (format "Open 'w3m' %s " (file-name-nondirectory file)))
-        (w3m-find-file file))))
+;(defun dired-w3m-find-file ()
+;  (interactive)
+;  (require 'w3m)
+;  (let ((file (dired-get-filename)))
+;    (if (y-or-n-p (format "Open 'w3m' %s " (file-name-nondirectory file)))
+;        (w3m-find-file file))))
 
 
 ;; キーバインド
@@ -680,21 +728,5 @@
 (eval-after-load "dired"
   '(define-key dired-mode-map "\C-xt" 'dired-tar))
 
-;; eshell
-(defun eshell-mode-hook-func ()
-  (setq eshell-path-env (concat "~/Ruisdael/tools/bin:~/.gvm/groovy/current/bin:~/.gvm/vertx/current/bin:" eshell-path-env))
-  (setenv "PATH" (concat "~/Ruisdael/tools/bin:~/.gvm/groovy/current/bin:~/.gvm/vertx/current/bin:" (getenv "PATH")))
-  (define-key eshell-mode-map (kbd "M-s") 'other-window-or-split))
-
-(add-hook 'eshell-mode-hook 'eshell-mode-hook-func)
-
-(defadvice eshell-script-interpreter (around esi activate)
-  (setq ad-return-value
-        (let ((file (ad-get-arg 0))
-              (maxlen eshell-command-interpreter-max-length))
-          (if (and (file-readable-p file)
-                   (file-regular-p file))
-              (with-temp-buffer
-                (insert-file-contents-literally file nil 0 maxlen)
-                (when (re-search-forward "^#![ \t]*\\(.+\\)$" nil t)
-                  `(,@(split-string (match-string 1)) ,file)))))))
+;;; seimei
+(autoload 'seimei "seimei" "seimei" t)
