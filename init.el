@@ -34,24 +34,24 @@
       windows-p (or cygwin-p nt-p meadow-p))
 
 ;;; init.el を起動後にバイトコンパイルする
-;(add-hook 'after-init-hook
-;	  (lambda ()
-;	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
-;		(progn
-;		  (require 'bytecomp)
-;		  (displaying-byte-compile-warnings
-;		   (unless (byte-compile-file "~/.emacs.d/init.el")
-;		     (signal nil nil)))))))
+(add-hook 'after-init-hook
+	  (lambda ()
+	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
+		(progn
+		  (require 'bytecomp)
+		  (displaying-byte-compile-warnings
+		   (unless (byte-compile-file "~/.emacs.d/init.el")
+		     (signal nil nil)))))))
 
 ;;; init.el を終了時にバイトコンパイルする
-;(add-hook 'kill-emacs-hook
-;	  (lambda ()
-;	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
-;		(progn
-;		  (require 'bytecomp)
-;		  (displaying-byte-compile-warnings
-;		   (unless (byte-compile-file "~/.emacs.d/init.el")
-;		     (signal nil nil)))))))
+(add-hook 'kill-emacs-hook
+	  (lambda ()
+	    (if (file-newer-than-file-p "~/.emacs.d/init.el" "~/.emacs.d/init.elc")
+		(progn
+		  (require 'bytecomp)
+		  (displaying-byte-compile-warnings
+		   (unless (byte-compile-file "~/.emacs.d/init.el")
+		     (signal nil nil)))))))
 
 
 ;;Key bind

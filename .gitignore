@@ -2,5 +2,6 @@
 /elpa/
 /eshell/
 /url/
+/quelpa/
 *.elc
 tramp
