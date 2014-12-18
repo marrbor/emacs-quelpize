@@ -314,7 +314,7 @@
 (quelpa 'js2-refactor)
 (quelpa 'ac-js2)
 (quelpa 'groovy-mode)
-(quelpa 'powershell-mode)
+;(quelpa 'powershell-mode)
 (quelpa 'git)
 (quelpa 'git-blame)
 (quelpa 'json-mode)
