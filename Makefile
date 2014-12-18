@@ -22,3 +22,6 @@ test:
 	@echo "EMACS:$(EMACS)"
 	@echo "EMACSVER:$(EMACSVER)"
 	@echo "DIRS:$(DIRS)"
+	@echo "SHAREDIR:$(SHAREDIR)"
+	@echo "SITELISP:$(SITELISP)"
+	@echo "VERSITELISP:$(VERSITELISP)"
