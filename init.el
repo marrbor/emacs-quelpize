@@ -1,5 +1,7 @@
 ;;;
-;;; w3mをquelpaで取得するために CVS が必要です。
+;;; pre requirement:
+;;;  git, subversion, cvs: to get package by quelpa.
+;;;  w3m: to use emacs-w3m
 ;;;
 
 
@@ -11,7 +13,7 @@
     (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
     (eval-buffer)))
 
-;;;
+;;; my lisps
 (setq load-path (cons "~/.emacs.d/lisp/" load-path))
 
 ;;; system-type predicates (http://d.hatena.ne.jp/tomoya/20090807/1249601308)
@@ -73,19 +75,19 @@
 (global-set-key "\C-xj" 'skk-mode)
 
 ;;; Font
-;(if window-system (cons
-;		   (set-face-attribute 'default nil
-;				       :family "Ricty Discord"
-;				       :height 120)
-;		   (set-fontset-font (frame-parameter nil 'font)
-;				     'japanese-jisx0208
-;				     (cons "Ricty Discord" "iso10646-1"))
-;		   (set-fontset-font (frame-parameter nil 'font)
-;				     'japanese-jisx0212
-;				     (cons "Ricty Discord" "iso10646-1"))
-;		   (set-fontset-font (frame-parameter nil 'font)
-;				     'katakana-jisx0201
-;				     (cons "Ricty Discord" "iso10646-1"))))
+(if window-system (cons
+		   (set-face-attribute 'default nil
+				       :family "Ricty Discord"
+				       :height 120)
+		   (set-fontset-font (frame-parameter nil 'font)
+				     'japanese-jisx0208
+				     (cons "Ricty Discord" "iso10646-1"))
+		   (set-fontset-font (frame-parameter nil 'font)
+				     'japanese-jisx0212
+				     (cons "Ricty Discord" "iso10646-1"))
+		   (set-fontset-font (frame-parameter nil 'font)
+				     'katakana-jisx0201
+				     (cons "Ricty Discord" "iso10646-1"))))
 
 ;;; 長いリストの表示を省略する(数字:MAXの数(default:12)、nil:省略しない)
 (setq eval-expression-print-length nil)
@@ -307,8 +309,6 @@
 
 ;;; packages
 (require 'quelpa)
-(quelpa 'apel)
-(quelpa 'w3m)
 (quelpa 'flymake-gjshint)
 (quelpa 'js2-mode)
 (quelpa 'js2-refactor)
@@ -317,21 +317,21 @@
 (quelpa 'powershell-mode)
 (quelpa 'git)
 (quelpa 'git-blame)
-(quelpa 'skk)
 (quelpa 'json-mode)
 (quelpa 'flymake-json)
 (quelpa 'nsis-mode)
 (quelpa 'dos)
+(quelpa 'inf-mongo)
+(quelpa 'inf-ruby)
 
-;(load "ins-ref")
+(load "ins-ref")
 
 (put 'narrow-to-region 'disabled nil)
 
 ;;;w3m
-; ADHOC
-;(require 'w3m-load)
-;(setq browse-url-browser-function 'w3m-browse-url)
-;(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+(require 'w3m-load)
+(setq browse-url-browser-function 'w3m-browse-url)
+(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 
 ;;; JavaScript
 (autoload 'js2-mode "js2-mode" nil t)
@@ -590,6 +590,8 @@
 ;;; Note: GitHub Flavored Markdown は gfm-mode を使う
 (autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+
 
 ;;; Makfile mode
 (add-to-list 'auto-mode-alist '("Makefile\\..*$" . makefile-gmake-mode))
@@ -710,12 +712,12 @@
 
 
 ;; ファイルを w3m で開く
-;(defun dired-w3m-find-file ()
-;  (interactive)
-;  (require 'w3m)
-;  (let ((file (dired-get-filename)))
-;    (if (y-or-n-p (format "Open 'w3m' %s " (file-name-nondirectory file)))
-;        (w3m-find-file file))))
+(defun dired-w3m-find-file ()
+  (interactive)
+  (require 'w3m)
+  (let ((file (dired-get-filename)))
+    (if (y-or-n-p (format "Open 'w3m' %s " (file-name-nondirectory file)))
+        (w3m-find-file file))))
 
 
 ;; キーバインド
@@ -730,3 +732,11 @@
 
 ;;; seimei
 (autoload 'seimei "seimei" "seimei" t)
+
+;;; mongo
+(require 'inf-mongo)
+
+;;; inf-ruby
+(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+   (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
+
