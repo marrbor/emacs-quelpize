@@ -16,6 +16,9 @@
 ;;; my lisps
 (setq load-path (cons "~/.emacs.d/lisp/" load-path))
 
+;;; ins-ref
+(load "ins-ref")
+
 ;;; system-type predicates (http://d.hatena.ne.jp/tomoya/20090807/1249601308)
 (setq darwin-p  (eq system-type 'darwin)
       ns-p      (eq window-system 'ns)
@@ -105,10 +108,7 @@
                                     (25 . (no-conversion . no-conversion))))
 
 ;;; 日本語メニューの文字コード
-(setq menu-coding-system 'utf-8)
-
-;;; 日本語メニューの文字コード
-(setq menu-coding-system 'utf-8)
+(defvar menu-coding-system 'utf-8)
 
 ;;;
 (setq debug-on-error t)
@@ -120,15 +120,15 @@
 (setq font-lock-support-mode 'jit-lock-mode)
 ; added by masahide 2003/4/28 font-lock-mode-internal cannot loaded when update emacs CVS
 (autoload 'font-lock-mode-internal "font-lock" "font-lock-mode-internal" t)
-(setq fast-lock-cache-directories '("~/.emacs.d/emacs-flc"))
+(defvar fast-lock-cache-directories '("~/.emacs.d/emacs-flc"))
 (setq auto-save-list-file-prefix "~/.emacs.d/auto-save-list/.saves-")
 (setq temporary-file-directory "~/.emacs.d/tmp")
 
 
 ;;; 時計表示
-(setq display-time-24hr-format t)
-(setq display-time-day-and-date t)
-(setq display-time-string-forms
+(defvar display-time-24hr-format t)
+(defvar display-time-day-and-date t)
+(defvar display-time-string-forms
       '(month "/" day "(" dayname ") " 24-hours ":" minutes))
 (display-time)
 
@@ -316,16 +316,16 @@
 (quelpa 'groovy-mode)
 (quelpa 'magit)
 (quelpa 'magit-svn)
-(quelpa 'git-blame)
+;(quelpa 'mo-git-blame)
 (quelpa 'json-mode)
 (quelpa 'flymake-json)
-(quelpa 'nsis-mode)
+;(quelpa 'nsis-mode)
 (quelpa 'dos)
 (quelpa 'inf-mongo)
 (quelpa 'inf-ruby)
 ;(quelpa 'powershell-mode)
 
-(load "ins-ref")
+
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -341,10 +341,7 @@
           #'(lambda ()
               (require 'js)
               (setq js2-basic-offset 2
-                    indent-tabs-mode nil)
-              (define-key js2-mode-map (kbd "C-m") 'newline-and-indent)
-              (define-key js2-mode-map (kbd "<return>") 'newline-and-indent)
-              ))
+                    indent-tabs-mode nil)))
 
 (defun flymake-gjslint-init ()
   "Initialize flymake for gjslint"
@@ -352,13 +349,13 @@
                      'flymake-create-temp-inplace)))
     ;; (list "gjslint" (list temp-file "--nosummary"))))
     (list "gjslint" (list temp-file "--nosummary"))))
-(setq flymake-allowed-file-name-masks nil)
+(defvar flymake-allowed-file-name-masks nil)
 (add-to-list 'flymake-allowed-file-name-masks
              '(".+\\.js$"
                flymake-gjslint-init
                flymake-simple-cleanup
                flymake-get-real-file-name))
-(setq flymake-err-line-patterns nil)
+(defvar flymake-err-line-patterns nil)
 (add-to-list 'flymake-err-line-patterns
              '("^Line \\([[:digit:]]+\\), E:[[:digit:]]+: "
                nil 1 nil))
@@ -417,7 +414,7 @@
 (autoload 'htmlize-file "htmlize" "Load FILE, fontify it, convert it to HTML, and save the result." t)
 
 ;;; org-mode
-(setq org-export-latex-classes nil)
+(defvar org-export-latex-classes nil)
 (add-to-list 'org-export-latex-classes
 	     '("report"
 	       "
@@ -447,7 +444,7 @@
 	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 ;;; org-mode ditaa
-(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/libs/ditaa/jditaa.jar"))
+(defvar org-ditaa-jar-path (expand-file-name "~/.emacs.d/libs/ditaa/jditaa.jar"))
 
 (add-hook 'picture-mode-hook 'picture-mode-init)
 (autoload 'picture-mode-init "picture-init")
@@ -506,7 +503,7 @@
 
 ;;; BEGIN_SRC ブロックの評価時、いちいち yes-no-p させない
 ;;; その代わり危険なコードには :eval never をつける必要がある。
-(setq org-confirm-babel-evaluate nil)
+(defvar org-confirm-babel-evaluate nil)
 
 ;;; BEGIN_SRC ブロックの評価時、ditaa か dot なら yes-no-p させない
 ;(defun my-org-confirm-babel-evaluate (lang body)
@@ -519,7 +516,7 @@
  '(;; other Babel languages
    (plantuml . t)))
 
-(setq org-plantuml-jar-path
+(defvar org-plantuml-jar-path
       (expand-file-name "~/.emacs.d/libs/plantUML/plantuml.jar"))
 
 ;;; SKK
@@ -530,7 +527,7 @@
 (global-set-key [hiragana-katakana] 'skk-mode)
 
 ;; ~/.skk にいっぱい設定を書いているのでバイトコンパイルしたい
-(setq skk-byte-compile-init-file t)
+(defvar skk-byte-compile-init-file t)
 ;; 注) 異なる種類の Emacsen を使っている場合は nil にします
 
 ;; SKK を Emacs の input method として使用する
@@ -541,12 +538,12 @@
       )
 
 ;; SKK を起動していなくても、いつでも skk-isearch を使う
-(setq skk-isearch-mode-enable 'always)
+(defvar skk-isearch-mode-enable 'always)
 
 ;; @@ 応用的な設定
 
 ;; ~/.skk* なファイルがたくさんあるので整理したい
-(setq skk-user-directory "~/.emacs.d/.ddskk")
+(defvar skk-user-directory "~/.emacs.d/.ddskk")
 
 ;; 注 1) 上記の設定をした場合、~/.skk や ~/.skk-jisyo の代わりに
 ;;       ~/.ddskk/init や ~/.ddskk/jisyo が使われます。ただし、
@@ -581,7 +578,7 @@
     (add-hook hook function)))
 
 ;; Emacs 起動時に SKK を前もってロードする
-(setq skk-preload t)
+(defvar skk-preload t)
 ;; 注) skk.el をロードするだけなら (require 'skk) でもよい。上記設定の
 ;; 場合は、skk-search-prog-list に指定された辞書もこの時点で読み込んで
 ;; 準備する。Emacs の起動は遅くなるが，SKK を使い始めるときのレスポンス
@@ -643,10 +640,12 @@
 (add-hook 'find-file-not-found-hooks 'auto-insert)
 
 ;;; JSON
-(require 'json-mode)
+(autoload 'json-mode "json-mode" "Major mode for editing JSON code." t)
+(add-to-list 'auto-mode-alist '("\.json$" . json-mode))
+
 
 ;;; Cygwin Shell
-(setq explicit-bash-args '("--login" "-i"))
+(defvar explicit-bash-args '("--login" "-i"))
 (defun cygwin-shell ()
   "Run cygwin bash in shell mode."
   (interactive)
@@ -661,20 +660,20 @@
 
 ;; diredを2つのウィンドウで開いている時に、デフォルトの移動orコピー先を
 ;; もう一方のdiredで開いているディレクトリにする
-(setq dired-dwim-target t)
+(defvar dired-dwim-target t)
 
 ;; ディレクトリを再帰的にコピーする
-(setq dired-recursive-copies 'always)
+(defvar dired-recursive-copies 'always)
 
 ;; diredバッファでC-sした時にファイル名だけにマッチするように
-(setq dired-isearch-filenames t)
+(defvar dired-isearch-filenames t)
 
 ;; .zipで終わるファイルをZキーで展開できるように
-(setq dired-compress-file-suffixes nil)
+(defvar dired-compress-file-suffixes nil)
 (add-to-list 'dired-compress-file-suffixes '("\\.zip\\'" ".zip" "unzip"))
 
 ;; マークされたファイルを tar. C-u をつけると tar.gz.
-(setq dired-guess-shell-gnutar "/bin/tar")
+(defvar dired-guess-shell-gnutar "/bin/tar")
 (defun dired-tar (tarname files &optional arg)
   "A dired-mode extension to archive files marked. With prefix argument, the tarball is gziped."
   (interactive (let ((files (dired-get-marked-files)))
@@ -686,31 +685,6 @@
                    "tar cf - %2s | gzip &gt; %1s")
                "tar cf %s %s")))
     (shell-command (format tar tarname (mapconcat 'file-relative-name files " ")))))
-
-;; diredバッファでマークしたファイルをzip形式で圧縮する
-(defun concat-string-list (list)
-  "Return a string which is a concatenation of all elements of the list separated by spaces"
-  (mapconcat '(lambda (obj) (format "%s" obj)) list " "))
-(defun dired-zip-files (zip-file)
-  "Create an archive containing the marked files."
-  (interactive "sEnter name of zip file: ")
-  (let ((zip-file (if (string-match ".zip$" zip-file) zip-file (concat zip-file ".zip"))))
-    (shell-command
-     (concat "zip "
-             zip-file
-             " "
-             (concat-string-list
-              (mapcar
-               '(lambda (filename)
-                  (file-name-nondirectory filename))
-               (dired-get-marked-files))))))
-  (revert-buffer)
-  ;; remove the mark on all the files  "*" to " "
-  ;;  (dired-change-marks 42)
-  ;; mark zip file
-  ;; (dired-mark-files-regexp (filename-to-regexp zip-file))
-  )
-
 
 ;; ファイルを w3m で開く
 (defun dired-w3m-find-file ()
@@ -735,7 +709,7 @@
 (autoload 'seimei "seimei" "seimei" t)
 
 ;;; mongo
-(require 'inf-mongo)
+;(require 'inf-mongo)
 
 ;;; inf-ruby
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
