@@ -5,7 +5,8 @@ EMACS:=$(shell which emacs)
 EMACSVER:=$(shell $(EMACS) --version |head -1 |awk '{print $$3}' |awk -F . '{print $$1"."$$2}')
 AUTOCONF:=$(shell which autoconf)
 
-PREFIX:=$(subst /bin/emacs,,$(EMACS))
+#PREFIX:=$(subst /bin/emacs,,$(EMACS))
+PREFIX=./lisp
 
 ifeq ($(strip $(SYS)),CYGWIN_NT-6.1)
 # cygwin

@@ -315,7 +315,8 @@
 (quelpa 'ac-js2)
 (quelpa 'groovy-mode)
 ;(quelpa 'powershell-mode)
-(quelpa 'git)
+(quelpa 'magit)
+(quelpa 'magit-svn)
 (quelpa 'git-blame)
 (quelpa 'json-mode)
 (quelpa 'flymake-json)
@@ -400,8 +401,8 @@
 (add-to-list 'auto-mode-alist '("\.ns[ih]$" . nsis-mode))
 
 ;;; Git
-(require 'git)
-(require 'git-blame)
+(require 'magit)
+(require 'magit-svn)
 
 ;;; Markdown
 (autoload 'markdown-mode "markdown-mode"
