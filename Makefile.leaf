@@ -6,17 +6,15 @@ EMACSVER:=$(shell $(EMACS) --version |head -1 |awk '{print $$3}' |awk -F . '{pri
 AUTOCONF:=$(shell which autoconf)
 
 #PREFIX:=$(subst /bin/emacs,,$(EMACS))
-PREFIX=./lisp
+PREFIX=$(abspath $(HOME)/.emacs.d/lisp)
 
 ifeq ($(strip $(SYS)),CYGWIN_NT-6.1)
 # cygwin
-SUDO:=
 SHAREDIR:=$(PREFIX)/etc
 SITELISP:=$(PREFIX)/site-lisp
 VERSITELISP:=$(SITELISP)
 else
 # not cygwin
-SUDO:=sudo
 SHAREDIR:=$(PREFIX)/share
 SITELISP:=$(SHAREDIR)/emacs/site-lisp
 VERSITELISP:=$(SHAREDIR)/emacs/$(EMACSVER)/site-lisp

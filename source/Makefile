@@ -1,7 +1,7 @@
 include ../Makefile.leaf
 
-INSTALL:=$(SUDO) make install EMACS=$(EMACS)
-INSTALL_W3M:=$(SUDO) make install-lisp EMACS=$(EMACS) lispdir=$(SITELISP)/w3m
+INSTALL:=make install EMACS=$(EMACS)
+INSTALL_W3M:=make install-lisp EMACS=$(EMACS) lispdir=$(SITELISP)/w3m
 
 all: skk w3m
 
