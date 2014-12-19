@@ -314,7 +314,6 @@
 (quelpa 'js2-refactor)
 (quelpa 'ac-js2)
 (quelpa 'groovy-mode)
-;(quelpa 'powershell-mode)
 (quelpa 'magit)
 (quelpa 'magit-svn)
 (quelpa 'git-blame)
@@ -324,6 +323,7 @@
 (quelpa 'dos)
 (quelpa 'inf-mongo)
 (quelpa 'inf-ruby)
+;(quelpa 'powershell-mode)
 
 (load "ins-ref")
 

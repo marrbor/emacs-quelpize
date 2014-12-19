@@ -25,3 +25,4 @@ test:
 	@echo "SHAREDIR:$(SHAREDIR)"
 	@echo "SITELISP:$(SITELISP)"
 	@echo "VERSITELISP:$(VERSITELISP)"
+	@echo "SYS:$(SYS)"
